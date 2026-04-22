@@ -1,12 +1,473 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Hazar Sisik</title>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hazar Sisik | Engineering Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121931;
+      --panel-2: #18213f;
+      --text: #eaf0ff;
+      --muted: #b7c2e0;
+      --accent: #7aa2ff;
+      --accent-2: #9fd4ff;
+      --border: #2a355f;
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0b1020 0%, #0f1730 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(92%, var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 16, 32, 0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-inner {
+      width: min(92%, var(--max));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 72px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: rgba(18, 25, 49, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 36px;
+    }
+
+    .hero-side {
+      padding: 28px;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.12;
+      margin: 0 0 16px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 62ch;
+      margin-bottom: 26px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), #5d86ff);
+      border-color: transparent;
+      color: white;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .mini-item {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .mini-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    section {
+      padding: 18px 0 26px;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      margin: 0 0 16px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 70ch;
+      margin-bottom: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .about-card, .skills-card, .project-card, .doc-card, .contact-card {
+      padding: 26px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(122, 162, 255, 0.12);
+      border: 1px solid rgba(122, 162, 255, 0.25);
+      color: #dbe6ff;
+      font-size: 0.92rem;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .project-title {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .project-meta {
+      color: var(--accent-2);
+      font-size: 0.93rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .project-card p,
+    .about-card p,
+    .doc-card p,
+    .contact-card p,
+    .skills-card p {
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .doc-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .footer {
+      padding: 36px 0 50px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .grid-2,
+      .doc-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero-main,
+      .hero-side,
+      .about-card,
+      .skills-card,
+      .project-card,
+      .doc-card,
+      .contact-card {
+        padding: 22px;
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
-<body style="font-family: Arial; text-align:center; margin-top:100px;">
-  <h1>Hazar Sisik</h1>
-  <h2>Engineering Portfolio</h2>
-  <p>CFD | Digital Twins | AI | Simulation</p>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">Hazar Sisik</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#documents">Documents</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="card hero-main">
+        <div class="eyebrow">Mechanical Engineer | CFD | Digital Twins | AI-Assisted Simulation</div>
+        <h1>Engineering Portfolio</h1>
+        <p class="subtitle">
+          I am a Mechanical Engineer with dual M.Sc. backgrounds in Mechanical Engineering and Data Science & AI.
+          My work focuses on CFD, digital twins, multiphysics simulation, thermal systems, scientific visualization,
+          and AI-assisted engineering workflows.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="assets/Hazar_Sisik_CV.pdf" target="_blank">Download CV</a>
+          <a class="btn" href="assets/Presentation_ICCHMT.pptx" target="_blank">Open Conference Presentation</a>
+          <a class="btn" href="assets/Hazar_Sisik_Thesis.pdf" target="_blank">Read Master Thesis</a>
+        </div>
+      </div>
+
+      <div class="card hero-side">
+        <div class="eyebrow">Highlights</div>
+        <div class="mini-list">
+          <div class="mini-item">
+            <strong>Industrial Digital Twin Development</strong>
+            Full-scale digital twin of an industrial glass annealing furnace developed under real operating conditions.
+          </div>
+          <div class="mini-item">
+            <strong>Scientific Visualization</strong>
+            Extensive ParaView-based post-processing, thermal analysis, and engineering interpretation of CFD and radiation outputs.
+          </div>
+          <div class="mini-item">
+            <strong>Research Direction</strong>
+            AI-assisted simulation, PINNs, inverse problem solving, and structured digital twin workflows.
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about">
+      <div class="grid-2">
+        <div class="card about-card">
+          <h2>About Me</h2>
+          <p>
+            My academic and professional work is centered on computational modelling of complex engineering systems,
+            especially thermo-fluid systems under real operating conditions. I have experience in custom solver development,
+            conjugate heat transfer, radiation modelling, CFD validation, scientific visualization, and workflow automation.
+          </p>
+          <p>
+            In my recent research, I developed a full-scale digital twin of an industrial glass annealing furnace using
+            OpenFOAM, custom Monte Carlo radiation modelling in NVIDIA OptiX C++, Python-based coupling workflows, and
+            ParaView-based post-processing and visualization. I am also interested in integrating high-fidelity simulation
+            frameworks with AI methods such as PINNs for inverse problem solving and next-generation engineering workflows.
+          </p>
+        </div>
+
+        <div class="card skills-card">
+          <h2>Core Skills</h2>
+          <p>
+            My technical background combines simulation-driven engineering, numerical methods, scientific programming,
+            and engineering analysis across industrial and research environments.
+          </p>
+          <div class="skills">
+            <span class="tag">OpenFOAM</span>
+            <span class="tag">ParaView</span>
+            <span class="tag">Python</span>
+            <span class="tag">C++</span>
+            <span class="tag">ANSYS Fluent</span>
+            <span class="tag">ANSYS CFX</span>
+            <span class="tag">Star-CCM+</span>
+            <span class="tag">ICEM CFD</span>
+            <span class="tag">MATLAB</span>
+            <span class="tag">Conjugate Heat Transfer</span>
+            <span class="tag">Radiation Modelling</span>
+            <span class="tag">Digital Twins</span>
+            <span class="tag">Thermal Systems</span>
+            <span class="tag">Scientific Visualization</span>
+            <span class="tag">CFD</span>
+            <span class="tag">FEA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Featured Project</h2>
+      <p class="section-intro">
+        Selected work highlighting simulation development, scientific visualization, and engineering analysis.
+      </p>
+
+      <div class="projects">
+        <div class="card project-card">
+          <div class="project-meta">Industrial Simulation | CFD | Radiation | Scientific Visualization</div>
+          <h3 class="project-title">Industrial Glass Annealing Furnace Digital Twin</h3>
+          <p>
+            Developed a full-scale digital twin of an industrial glass annealing furnace using real operating conditions,
+            including actual furnace dimensions and production loads. Designed and implemented a custom conjugate heat transfer
+            framework by combining an OpenFOAM-based RANS solver with a custom GPU-accelerated Monte Carlo ray tracing solver
+            in NVIDIA OptiX C++ for surface-to-surface radiation modelling.
+          </p>
+          <p>
+            Developed both steady-state and transient solvers to capture coupled airflow, wall temperatures, solid conduction,
+            and transient thermal behavior of moving glassware. Built structured blocking topologies and high-quality meshes in
+            ANSYS ICEM CFD for complex glassware geometries, and integrated the complete workflow using Python.
+          </p>
+          <p>
+            Transferred OpenFOAM and Monte Carlo simulation outputs to ParaView and performed advanced post-processing and
+            scientific visualization, including furnace and glassware temperature fields, airflow and velocity distributions,
+            contour analysis, and extraction of thermal/fluid properties for further engineering interpretation in Python.
+          </p>
+          <p>
+            The framework was verified with ANSYS Fluent and Star-CCM+ using real plant data, achieved an accuracy of ±3–5 °C
+            across 9 heating and cooling zones, and resulted in an 8% reduction in energy consumption together with improved
+            glassware quality in real operation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="documents">
+      <h2>Documents</h2>
+      <p class="section-intro">
+        Selected materials including CV, thesis, and conference presentation.
+      </p>
+
+      <div class="doc-grid">
+        <div class="card doc-card">
+          <h3 class="project-title">Curriculum Vitae</h3>
+          <p>
+            Current CV including simulation engineering, CFD, digital twin development, ParaView visualization, and research experience.
+          </p>
+          <div class="doc-links">
+            <a class="btn" href="assets/Hazar_Sisik_CV.pdf" target="_blank">Open CV</a>
+          </div>
+        </div>
+
+        <div class="card doc-card">
+          <h3 class="project-title">Master Thesis</h3>
+          <p>
+            Numerical Analysis of an Industrial Scale Continuous Container Glass Annealing Furnace.
+          </p>
+          <div class="doc-links">
+            <a class="btn" href="assets/Hazar_Sisik_Thesis.pdf" target="_blank">Open Thesis</a>
+          </div>
+        </div>
+
+        <div class="card doc-card">
+          <h3 class="project-title">Presentations</h3>
+          <p>
+            Conference and thesis-related presentation materials. The conference presentation is provided as PPTX, and the thesis defence presentation is available as PDF.
+          </p>
+          <div class="doc-links">
+            <a class="btn" href="assets/Presentation_ICCHMT.pptx" target="_blank">Open ICCHMT Presentation</a>
+            <a class="btn" href="assets/ThesisDefence_Presentation.pdf" target="_blank">Open Thesis Defence Presentation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="card contact-card">
+        <h2>Contact</h2>
+        <p>
+          I am open to research, simulation, CFD, digital twin, and AI-assisted engineering opportunities.
+        </p>
+        <p>
+          <strong>Email:</strong> <a href="mailto:hazarsisik@gmail.com">hazarsisik@gmail.com</a><br />
+          <strong>LinkedIn:</strong> <a href="https://www.linkedin.com" target="_blank">LinkedIn Profile</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © 2026 Hazar Sisik — Engineering Portfolio
+    </div>
+  </footer>
 </body>
 </html>
